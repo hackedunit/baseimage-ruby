@@ -2,7 +2,7 @@
 # sure you lock down to a specific version, not to `latest`!
 # See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
 # a list of version numbers.
-FROM phusion/baseimage:0.9.15
+FROM phusion/baseimage:0.9.19
 MAINTAINER Mike Fotinakis <mike@fotinakis.com>
 
 # Set correct environment variables.
@@ -20,15 +20,15 @@ RUN apt-get install -y --no-install-recommends git-core build-essential curl wge
 
 # Install ruby-install to manage ruby versions.
 WORKDIR /tmp
-RUN wget -O ruby-install-0.5.0.tar.gz https://github.com/postmodern/ruby-install/archive/v0.5.0.tar.gz
-RUN tar -xzvf ruby-install-0.5.0.tar.gz
-RUN cd ruby-install-0.5.0/ && sudo make install
+RUN wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz
+RUN tar -xzvf ruby-install-0.6.1.tar.gz
+RUN cd ruby-install-0.6.1/ && make install
 
 # Install ruby.
-RUN ruby-install --md5 02b7da3bb06037c777ca52e1194efccb ruby 2.1.3
+RUN ruby-install ruby 2.3.3
 
 # Inject the installed ruby bin dir into $PATH so that non-login shells can find ruby.
-ENV PATH $PATH:/opt/rubies/ruby-2.1.3/bin
+ENV PATH $PATH:/opt/rubies/ruby-2.3.3/bin
 
 # Clean up APT and /tmp when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
