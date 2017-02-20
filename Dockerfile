@@ -8,10 +8,6 @@ MAINTAINER Mike Fotinakis <mike@fotinakis.com>
 # Set correct environment variables.
 ENV HOME /root
 
-# Disable SSH, enabled by phusion/baseimage by default. We don't want to encourage SSH management
-# because `docker exec` exists now. https://github.com/phusion/baseimage-docker#disabling-ssh
-RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
-
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
